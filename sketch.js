@@ -41,7 +41,7 @@ function setup(){
     for(var j=40;j<=width;j+=50){
         plinkos.push(new Plinko(j+17,275,10));
     }
-    
+    mousePressed();
     
     
 }
@@ -65,7 +65,7 @@ function draw(){
     Engine.update(engine);
     
     
-    mousePressed();
+    
     drawSprites();
     fill("Red");
     g.display();
@@ -81,12 +81,12 @@ function draw(){
     }
     if(part!=null){
         part.display();
-        if (this.body.position.y>450){
-            if(this.body.position.x<92||this.body.position.x>368){
+        if (part.body.position.y>450){
+            if(part.body.position.x<92||part.body.position.x>368){
               score+=500;
               
             }
-            else if(this.body.position.x<184||this.body.position.x<276){
+            else if(part.body.position.x<184||part.body.position.x<276){
               score+=200;
               
             }
