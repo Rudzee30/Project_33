@@ -2,7 +2,7 @@ const Engine = Matter.Engine;
 const World= Matter.World;
 const Bodies = Matter.Bodies;
 const Constraint = Matter.Constraint;
-var gameState="play";
+var gameState;
 var engine, world;
 var g,g1,g2,g4;
 var plinkos=[];
@@ -21,7 +21,7 @@ function setup(){
     g4.shapeColor="LightGreen";
     engine = Engine.create();
     world = engine.world;
-    
+    gameState="play";
     g= new Ground(240,785,480,30);
     g1= new Ground(5,400,12,800);
     g2= new Ground(240,5,480,10);
@@ -41,7 +41,7 @@ function setup(){
     for(var j=40;j<=width;j+=50){
         plinkos.push(new Plinko(j+17,275,10));
     }
-    mousePressed();
+    
     
     
 }
@@ -79,31 +79,38 @@ function draw(){
     for (var k=0;k<plinkos.length;k++){
         plinkos[k].display();
     }
+    console.log(mouseX)
     if(part!=null){
+        console.log(part);
         part.display();
-        if (part.body.position.y>450){
+        if (part.body.position.y>760){
             if(part.body.position.x<92||part.body.position.x>368){
               score+=500;
+              part=null;
               
             }
-            else if(part.body.position.x<184||part.body.position.x<276){
+            else if(part.body.position.x<200&& part.body.position.x>111||part.body.position.x<374&&part.body.position.x>285){
               score+=200;
+              part=null;
               
             }
             else{
               score+=100;
+              part=null;
               
             }
-            part=null
+            
         }
-        if(count=5){
+       
+        if(count===5){
             gameState="end";
         }
     }
     
 }
-function mousePressed(){
-    if(gameState!=="end"){
+function keyPressed(){
+    console.log(gameState);
+    if(keyCode===32&&gameState!=="end"){
         
         part=new Particle(mouseX,10,10);
         count++
